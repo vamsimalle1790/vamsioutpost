@@ -77,79 +77,7 @@ Response:
 }
 
 
-
-Here’s a simplified document explaining the FastAPI-based K3s Cluster Setup and PostgreSQL Deployment API.
-
-K3s Cluster Setup and PostgreSQL Deployment API Documentation
-Overview
-This API provides a streamlined way to create a highly available Kubernetes (K3s) cluster on Azure VMs, install Helm, and deploy PostgreSQL using Helm charts.
-
-Endpoints
-1. Root Endpoint
-URL: /
-Method: GET
-Description: Health check for the API.
-Response:
-json
-Copy code
-{
-  "message": "K3s Cluster Setup API"
-}
-2. Create Virtual Machines
-URL: /create-vms
-Method: POST
-Description: Creates VMs on Azure with a resource group, network security group (NSG), virtual network, and subnet.
-Request Parameters:
-vm_count: Number of VMs to create.
-resource_group: Name of the Azure resource group.
-location: Azure region (e.g., centralindia).
-vm_size: Azure VM size (e.g., Standard_B1s).
-username: Admin username for the VM.
-password: Admin password for the VM.
-Response:
-json
-Copy code
-{
-  "status": "2 VMs created successfully with NSG and open ports",
-  "vm_ips": [
-    {"vm_name": "myVM-1", "public_ip": "x.x.x.x", "dns_name": "vm-dns-1"},
-    {"vm_name": "myVM-2", "public_ip": "y.y.y.y", "dns_name": "vm-dns-2"}
-  ]
-}
-3. Setup K3s on Primary Node
-URL: /setup-k3s-primary
-Method: POST
-Description: Installs K3s on the primary node and retrieves the K3s token.
-Request Parameters:
-ip_address: Primary VM IP address.
-username: VM username.
-password: VM password.
-Response:
-json
-Copy code
-{
-  "status": "K3s installed on primary node",
-  "token": "abc123..."
-}
-4. Join Secondary Nodes to K3s
-URL: /join-k3s-node
-Method: POST
-Description: Adds a secondary node to the K3s cluster using the primary node's token.
-Request Parameters:
-ip_address: Secondary VM IP address.
-username: VM username.
-password: VM password.
-token: Token from the primary node.
-server_ip: Primary node's IP address.
-Response:
---------
-{
-  "status": "Node joined to K3s cluster"
-}
-
-
-
-6. Clone Helm Chart Repository
+5. Clone Helm Chart Repository
 URL: /Clone-helm-chart
 Method: POST
 Description: Clones the PostgreSQL Helm chart repository onto the VM.
@@ -162,7 +90,7 @@ Response:
 {
   "status": "success",
   "message": "Commands executed successfully."
-}
+
 
 
 7. Deploy PostgreSQL
@@ -191,7 +119,7 @@ Response:
 }
 
 
-9. Install Monitoring
+8. Install Monitoring
 Endpoint:
 POST /install-monitoring/
 
