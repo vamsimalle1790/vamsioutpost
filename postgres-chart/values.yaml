@@ -1,0 +1,26 @@
+replicaCount: 1
+
+postgres:
+  image: postgres:latest
+  user: "user"
+  password: "password"
+  db: "mydb"
+  storage:
+    size: 1Gi
+  nodePort: 30000
+
+service:
+  type: NodePort
+
+serviceAccount:
+  create: true
+  name: ""
+
+ingress:
+  enabled: false
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
